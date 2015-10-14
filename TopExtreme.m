@@ -6,7 +6,7 @@ function [ OutData, OutStruc ] = TopExtreme( InStruc)
 %default plotting options
 set(0,'defaultlinelinewidth',2);
 set(0,'defaultaxeslinewidth',1);
-set(0,'DefaultAxesFontSize',12);
+set(0,'DefaultAxesFontSize',14);
 set(0,'DefaultAxesTickDir','out');
 %set default colourmap
 set(0,'DefaultFigureColormap',hot); close;
@@ -43,7 +43,8 @@ Struc.RtnYr=RtnYr;
 Struc.xaxisStrg='Dynamic Pressure, [nP] (1 Week Block Maximum above threshold)';
 Struc.Nyr=Nyr;
 
-[DynP100,Hstruc]= GevXtremVar(Pressure, Struc);
+% [DynP100,Hstruc]= GevXtremVar(Pressure, Struc);
+[DynP100,Hstruc]= GpdXtremVar(Pressure, Struc);
 DynP100
 % XtremMat= [  1,     2,    5,      10,    50,   100 ;...
 %            R1MLE, R2MLE, R5MLE, R10MLE, R50MLE, R100MLE];
@@ -66,7 +67,7 @@ Struc.Threshold=ThresvB;
 Struc.xaxisStrg='Magnetic Field, [nT] (1 Week Block Maximum above threshold)';
 
 BB=[Time,Bmag];
-[DynB100,Hstruc]= GevXtremVar(BB, Struc);
+[DynB100,Hstruc]= GpdXtremVar(BB, Struc);
 DynB100
 
 %% 401. perform analysis on VAR = VV ;  1in100 -> 1in1
@@ -76,7 +77,7 @@ Struc.Threshold=ThresvB;
 Struc.xaxisStrg='Velocity, [km/s] (1 Week Block Maximum above threshold)';
 
 VV=[Time,Vmag];
-[DynV100,Hstruc]= GevXtremVar(VV, Struc);
+[DynV100,Hstruc]= GpdXtremVar(VV, Struc);
 DynV100
 
 

@@ -12,6 +12,8 @@ function [OVar,Hstruc]= XtremGpdPD (InVar, Invar2)
 XtreVar=InVar;
 strgs=Invar2.strgs;
 Threshold=Invar2.Threshold;
+block=Invar2.block;
+
 
 PrXt=XtreVar(:,2);
 
@@ -58,6 +60,14 @@ legend('Empirical PD','Fitted Generalized Extreme Value PD','location','northeas
 xlim([lowerBnd ymax]);
 
 
+str = {['# of values, N = ',num2str(length(PrXt))], ...
+       ['Block size = ',num2str(block),' Days'], ...
+       ['Threshold = ',num2str(Threshold),' Units']};
+%annotation('textbox', [0.2,0.4,0.1,0.1],'String', str);
+xt=0.7* ymax;
+yt=0.8* max(y_val);
+text (xt,yt,str,'fontsize',16)
+       
 %% OUTPUTS
 Hstruc.Hpd=Hpd;
 OVar.paramEstsGEV=paramEstsGPD;

@@ -12,6 +12,7 @@ sigmaMLE = paramEstsGEV(2);    % Scale parameter
 strgs=Invar2.strgs;            % string of the xaxis variable phrase
 
 Threshold=Invar2.Threshold;
+block=Invar2.block;
 
 %% 02. inputs for plotting interval and grid spacing - repeat of XtremPD
 % lowerBnd = muMLE-sigmaMLE./kMLE;
@@ -40,6 +41,16 @@ legend('Fitted Generalized Pareto, CDF','Empirical CDF','location','southeast');
 xlim([lowerBnd ymax]);
 hCDax.YScale='log';
 hCDax.XScale='log';
+
+str = {['# of values, N = ',num2str(length(PrXt))], ...
+       ['Block size = ',num2str(block),' Days'], ...
+       ['Threshold = ',num2str(Threshold),' Units']};
+%annotation('textbox', [0.2,0.4,0.1,0.1],'String', str);
+xt=1.3* lowerBnd;
+yt=1.0* (1-F(end-1));
+text (xt,yt,str,'fontsize',16)
+
+
 
 %% 21. OUTPUTS
 Hstruc.Hpd=Hcd;

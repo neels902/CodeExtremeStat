@@ -40,7 +40,6 @@ XtreVar=XtremeVar(temp,:);
 %% 25. GPD: PD create fit to data - generalised Pareto Distribution : Correct FIT
 PDStr.strgs=strgs;
 PDStr.Threshold=Threshold;
-PDStr.block=block;
 
 [FitVal,HStrPD]= XtremGpdPD(XtreVar,PDStr);
 paramEstsGPD=FitVal.paramEstsGEV;
@@ -66,8 +65,6 @@ sigmaCI = paramGpdCIs(:,2);
 CulStr.paramEstsGEV=paramEstsGPD;
 CulStr.strgs=strgs;
 CulStr.Threshold=Threshold;
-CulStr.block=block;
-
 [CDVar,HStrCD]= XtremGpdCDF(XtreVar,CulStr);
 
 
@@ -85,47 +82,39 @@ rtnTime= 100; % time in years divide by total years in data set
 % rtnTime= RtnYr(1) ; 
 
 XtrmBlockNum100= round((rtnTime*365.25)./block);
-R100MLE = gevinv(1-1./XtrmBlockNum100,kMLE,sigmaMLE,Threshold);
+R100MLE = gevinv(1-1./XtrmBlockNum100,kMLE,sigmaMLE,muMLE);
 
 %% 41. return year extreme prediction: 1 in 50 year
-rtnTime= 50 ; % time in years
+rtnTime= 50 ./ Nyr ; % time in years
 XtrmBlockNum50= round((rtnTime*365.25)./block);
-R50MLE = gevinv(1-1./XtrmBlockNum50,kMLE,sigmaMLE,Threshold);
+R50MLE = gevinv(1-1./XtrmBlockNum50,kMLE,sigmaMLE,muMLE);
 
 %% 42. return year extreme prediction: 1 in 10 year
-rtnTime= 10 ; % time in years
+rtnTime= 10 ./Nyr ; % time in years
 XtrmBlockNum2= round((rtnTime*365.25)./block);
-R10MLE = gevinv(1-1./XtrmBlockNum2,kMLE,sigmaMLE,Threshold);
+R10MLE = gevinv(1-1./XtrmBlockNum2,kMLE,sigmaMLE,muMLE);
 
 %% 43. return year extreme prediction: 1 in 5 year
-rtnTime= 5 ; % time in years
+rtnTime= 5 ./Nyr ; % time in years
 XtrmBlockNum2= round((rtnTime*365.25)./block);
-R5MLE = gevinv(1-1./XtrmBlockNum2,kMLE,sigmaMLE,Threshold);
+R5MLE = gevinv(1-1./XtrmBlockNum2,kMLE,sigmaMLE,muMLE);
 
 %% 44. return year extreme prediction: 1 in 2 year
-rtnTime= 2 ; % time in years
+rtnTime= 2 ./Nyr ; % time in years
 XtrmBlockNum2= round((rtnTime*365.25)./block);
-R2MLE = gevinv(1-1./XtrmBlockNum2,kMLE,sigmaMLE,Threshold);
+R2MLE = gevinv(1-1./XtrmBlockNum2,kMLE,sigmaMLE,muMLE);
 
 %% 45. return year extreme prediction: 1 in 1 year
-rtnTime= 1 ; % time in years
+rtnTime= 1 ./ Nyr ; % time in years
 XtrmBlockNum1= round((rtnTime*365.25)./block);
-R1MLE = gevinv(1-1./XtrmBlockNum1,kMLE,sigmaMLE,Threshold);
+R1MLE = gevinv(1-1./XtrmBlockNum1,kMLE,sigmaMLE,muMLE);
 
-%% 46. return year extreme prediction: 1 in 1/2 year
-rtnTime= 0.5 ; % time in years
-XtrmBlockNum1= round((rtnTime*365.25)./block);
-R1i2MLE = gevinv(1-1./XtrmBlockNum1,kMLE,sigmaMLE,Threshold);
 
-%% 47. return year extreme prediction: 1 in 1/12 year
-rtnTime= 1./12 ; % time in years
-XtrmBlockNum1= round((rtnTime*365.25)./block);
-R1i12MLE = gevinv(1-1./XtrmBlockNum1,kMLE,sigmaMLE,Threshold);
 
 %% 50. collate rtn year values
 
-XtremMat=[  0.83,     0.5,     1,     2,     5,     10,     50,     100,    250;...
-          R1i12MLE, R1i2MLE, R1MLE, R2MLE, R5MLE, R10MLE, R50MLE, R100MLE, R250MLE];
+XtremMat=[  1,     2,     5,     10,     50,     100,    250;...
+          R1MLE, R2MLE, R5MLE, R10MLE, R50MLE, R100MLE, R250MLE];
 
 %% 60. uncertainty analysis
 
