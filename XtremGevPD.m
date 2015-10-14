@@ -1,4 +1,4 @@
-function [OVar,Hstruc]= XtremPD(InVar, Invar2)
+function [OVar,Hstruc]= XtremGevPD(InVar, Invar2)
 
 XtreVar=InVar;
 strgs=Invar2.strgs;
@@ -6,6 +6,7 @@ strgs=Invar2.strgs;
 PrXt=XtreVar(:,2);
 
 [paramEstsGEV,paramCIs] = gevfit(PrXt);
+% [paramEstsGPD,paramGpdCIs] = gpfit(PrXt);
 kMLE = paramEstsGEV(1);        % Shape parameter
 sigmaMLE = paramEstsGEV(2);    % Scale parameter
 muMLE = paramEstsGEV(3);       % Location parameter

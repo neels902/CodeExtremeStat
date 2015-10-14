@@ -9,37 +9,62 @@ RtnYr= InStr.RtnYr;       %  Return Year of extreme Var
 strgs=InStr.xaxisStrg;     % string of the Xaxis variable
 Nyr= InStr.Nyr;           % # of years in the raw data set
 
-%% 10. find peak extreme array with define block interval 
+%% 10. BLOCK to de-cluster: find peak extreme array with define block interval 
 %- process remove autocorrelation
 [XtremeVar,OStrucXP]=XtremeArray(Var,block);
 
-%% 11. Threshold the array to find large values only
+%% 11. PoT: Peak over Threshold the array to find large values only
 temp=find(XtremeVar(:,2)>Threshold);
 XtreVar=XtremeVar(temp,:);
 
-%% 20. PD create fit to data - generalised Extreme Value dist. : GOOD FIT
+
+
+%% 20. GEV: PD create fit to data - generalised Extreme Value dist. : GOOD FIT
        % type II, or Frechet seems the best fit
+% PDStr.strgs=strgs;
+% PDStr.Threshold=Threshold;
+% 
+% [FitVal,HStrPD]= XtremGevPD(XtreVar,PDStr);
+% paramEstsGEV=FitVal.paramEstsGEV;
+% paramCIs=FitVal.paramCIs;
+% 
+% %% 21. GEV param: define the optimised GEV parameters
+% kMLE = paramEstsGEV(1);        % Shape parameter
+% sigmaMLE = paramEstsGEV(2);    % Scale parameter
+% muMLE = paramEstsGEV(3);       % Location parameter
+% 
+% kCI = paramCIs(:,1);           % uncertainty in the values
+% sigmaCI = paramCIs(:,2);
+% muCI = paramCIs(:,3);
 
+%% 25. GPD: PD create fit to data - generalised Pareto Distribution : Correct FIT
 PDStr.strgs=strgs;
-[FitVal,HStrPD]= XtremPD(XtreVar,PDStr);
-paramEstsGEV=FitVal.paramEstsGEV;
-paramCIs=FitVal.paramCIs;
+PDStr.Threshold=Threshold;
 
-%% 21. define the optimised GEV parameters
-kMLE = paramEstsGEV(1);        % Shape parameter
-sigmaMLE = paramEstsGEV(2);    % Scale parameter
-muMLE = paramEstsGEV(3);       % Location parameter
+[FitVal,HStrPD]= XtremGpdPD(XtreVar,PDStr);
+paramEstsGPD=FitVal.paramEstsGEV;
+paramGpdCIs=FitVal.paramCIs;
 
-kCI = paramCIs(:,1);           % uncertainty in the values
-sigmaCI = paramCIs(:,2);
-muCI = paramCIs(:,3);
+kMLE = paramEstsGPD(1);        % Shape parameter
+sigmaMLE = paramEstsGPD(2);    % Scale parameter
+% muMLE = paramEstsGEV(3);       % Location parameter
 
+kCI = paramGpdCIs(:,1);           % uncertainty in the values
+sigmaCI = paramGpdCIs(:,2);
+% muCI = paramCIs(:,3);
 
 %% 30. create Cumulative fit to data - GEV distribution
 
 CulStr.paramEstsGEV=paramEstsGEV;
 CulStr.strgs=strgs;
 [CDVar,HStrCD]= XtremCulD(XtreVar,CulStr);
+
+
+%% 30. create Cumulative fit to data - GEV distribution
+
+CulStr.paramEstsGEV=paramEstsGEV;
+CulStr.strgs=strgs;
+[CDVar,HStrCD]= XtremGpdCDF(XtreVar,CulStr);
 
 
 
@@ -104,3 +129,4 @@ Str= 'temp: extrem uncertatinty values + more in future editions';
 
 
 return
+
