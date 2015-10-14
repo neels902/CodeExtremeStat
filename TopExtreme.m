@@ -50,10 +50,10 @@ DynP100
 
 
 %% 201. perform analysis on VAR = vB ;  1in100 -> 1in1
-ThresvB=15*1000;
+ThresvB=15*1000* (10^-3);
 
 Struc.Threshold=ThresvB;
-Struc.xaxisStrg='Motional Electric Field,vB [nT.km/s] (1 Week Block Maximum above threshold)';
+Struc.xaxisStrg='Motional Electric Field,vB [mV/m] (1 Week Block Maximum above threshold)';
 
 [DynE100,Hstruc]= GevXtremVar(vBB, Struc);
 DynE100
