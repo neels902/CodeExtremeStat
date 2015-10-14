@@ -54,17 +54,16 @@ sigmaCI = paramGpdCIs(:,2);
 % muCI = paramCIs(:,3);
 
 %% 30. create Cumulative fit to data - GEV distribution
-% 
-% CulStr.paramEstsGEV=paramEstsGEV;
-% CulStr.strgs=strgs;
-% [CDVar,HStrCD]= XtremCulD(XtreVar,CulStr);
-% 
 
-%% 35. create Cumulative fit to data - GPD distribution
-
-CulStr.paramEstsGEV=paramEstsGPD;
+CulStr.paramEstsGEV=paramEstsGEV;
 CulStr.strgs=strgs;
-CulStr.Threshold=Threshold;
+[CDVar,HStrCD]= XtremCulD(XtreVar,CulStr);
+
+
+%% 30. create Cumulative fit to data - GEV distribution
+
+CulStr.paramEstsGEV=paramEstsGEV;
+CulStr.strgs=strgs;
 [CDVar,HStrCD]= XtremGpdCDF(XtreVar,CulStr);
 
 

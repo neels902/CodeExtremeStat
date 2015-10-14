@@ -33,7 +33,7 @@ Vmag =Plasma(:,4);
 % choose max event in every week
 block= 7 ; %   # of days to time segmentation
            %   find # of data points per day
-ThresPres=floor(mp*12*1000*1000* (1*10^12)*(10^9));
+ThresPres=floor(mp*15*1000*1000* (1*10^12)*(10^9));
 % ThresPres=mp*10*1000*1000* (1*10^12);
 RtnYr= 100; %  Return Year of extreme Var
 
@@ -55,8 +55,7 @@ ThresvB=15*1000* (10^-3);
 Struc.Threshold=ThresvB;
 Struc.xaxisStrg='Motional Electric Field,vB [mV/m] (1 Week Block Maximum above threshold)';
 
-% [DynE100,Hstruc]= GevXtremVar(vBB, Struc);
-[DynE100,Hstruc]= GpdXtremVar(vBB, Struc);
+[DynE100,Hstruc]= GevXtremVar(vBB, Struc);
 DynE100
 
 %% 301. perform analysis on VAR = BB ;  1in100 -> 1in1

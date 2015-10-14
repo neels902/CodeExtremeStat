@@ -1,4 +1,4 @@
-function [XtremVal,Str] = GevXtremVar(InVar, InStr)
+function [XtremVal,Str] = GpdXtremVar(InVar, InStr)
 
 %% 01. define inputs
 Var=InVar;                %  Solar Wind Variable of full duration [Time,Var]
